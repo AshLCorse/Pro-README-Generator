@@ -101,8 +101,8 @@ function renderLicenseSection(license) {
     return "";
   } else {
     return license;
+  }
 }
-
 // TODO: Create a function to generate markdown for README
 function generateMarkdown(data) {
   return `# ${data.title}
@@ -161,4 +161,4 @@ If you have any questions about this project, please don't hesitate to reach out
 `;
 }
 
-module.exports = generateMarkdown;
+module.exports = generateMarkdown(data);
