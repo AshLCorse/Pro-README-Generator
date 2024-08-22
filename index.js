@@ -18,133 +18,100 @@
 // TODO: Include packages needed for this application
 const inquirer = require("inquirer");
 const fs = require("fs");
+const { title } = require("process");
 
-// TODO: Create an array of questions for user input
-const Title = {
-  type: "input",
-  message: "Enter your project title:",
-  name: "title",
-};
-const Description = {
-  type: "input",
-  message: "Enter a description of your project:",
-  name: "description",
-};
-const ToC = {
-  type: "checkbox",
-  message: "Select the sections of your README:",
-  choices: [
-    "Description",
-    "Table of Contents",
-    "Installation",
-    "Usage",
-    "License",
-    "Contributing",
-    "Tests",
-    "Questions",
-  ],
-  name: "toc",
-};
-const Installation = {
-  type: "input",
-  message: "Enter installation instructions:",
-  name: "installation",
-};
-const Usage = {
-  type: "input",
-  message: "Enter usage information:",
-  name: "usage",
-};
-const License = {
-  type: "list",
-  message: "Choose a license for your application:",
-  choices: ["MIT", "Apache-2.0", "GPL-3.0", "ISC", "None"],
-  name: "license",
-};
-const Contributing = {
-  type: "input",
-  message: "Enter contribution guidelines:",
-  name: "contributing",
-};
-const Tests = {
-  type: "input",
-  message: "Enter test instructions:",
-  name: "tests",
-};
-const Questions = {
-  type: "input",
-  message: "Enter your GitHub username:",
-  name: "githubUsername",
-};
-const questions = [
-  Title,
-  Description,
-  ToC,
-  Installation,
-  Usage,
-  License,
-  Contributing,
-  Tests,
-  Questions,
-];
+inquirer
+  .prompt([
+    {
+      type: "input",
+      message: "Enter your project title:",
+      name: "title",
+    },
+    {
+      type: "checkbox",
+      message: "Select the sections of your README:",
+      choices: [
+        "Description",
+        "Installation",
+        "Usage",
+        "License",
+        "Contributing",
+        "Tests",
+        "Contact",
+      ],
+      name: "toc",
+    },
+    {
+      type: "input",
+      message: "Enter a description of your project:",
+      name: "description",
+    },
+    {
+      type: "input",
+      message: "Enter installation instructions:",
+      name: "installation",
+    },
+    {
+      type: "input",
+      message: "Enter required npm extentions for usage:",
+      name: "usage1",
+    },
+    {
+      type: "input",
+      message: "Enter relevant commands for usage:",
+      name: "usage2",
+    },
+    {
+      type: "list",
+      message: "Choose a license for your application:",
+      choices: ["MIT", "Apache-2.0", "GPL-3.0", "ISC", "None"],
+      name: "license",
+    },
+    {
+      type: "input",
+      message: "Enter contribution guidelines:",
+      name: "contributing",
+    },
+    {
+      type: "input",
+      message: "Enter test instructions:",
+      name: "tests",
+    },
+  ])
+  .then((answers) => {
+    // TODO: Create a function to write README file
+    const generateMarkdown = ({
+      title,
+      toc,
+      description,
+      installation,
+      usage1,
+      usage2,
+      lisence,
+      contributing,
+      tests,
+      contact,
+    }) => `# ${title}
+    ## Table of Contents
+    ${toc}
+    ## Description
+    ${description}.
+    ## Installation
+    ${installation}.
+    ## Usage
+    To use, install ${usage1} through the terminal, run the code with ${usage2} when located in the folder the code is in.
+    ## License
+    ${lisence}
+    ## Contributing
+    Please remember to fork if you would like to contribute. ${contributing}.
+    ## Tests
+    ${tests}.
+    ## Contact
+    Contact me at AshLCorse at Github, or www.linkedin.com/in/ash-corse-2852a1126 at LinkedIn with any questions.
+    `;
 
-// TODO: Create a function to write README file
-function writeToFile(fileName, data) {
-  // Write code to generate README file here
-  fs.writeFile(fileName, data, (err) => {
-    if (err) throw err;
-    console.log("README.md generated successfully.");
+    const readmeContent = generateMarkdown(answers);
+    fs.writeFile("README.md", readmeContent, (err) => {
+      err ? console.log(err) : console.log("Successfully created README.md!");
+    });
   });
-  // Write code to generate link to description here
-  const descriptionLink = generateDescriptionLink(data.description);
-  writeDescriptionLinkToFile("README.md", descriptionLink);
-  console.log("Link to description generated successfully.");
-  // Write code to generate link to table of contents here
-  const tocLink = generateTocLink(data.toc);
-  writeTocLinkToFile("README.md", tocLink);
-  console.log("Link to table of contents generated successfully.");
-  // Write code to generate link to installation instructions here
-  const installationLink = generateInstallationLink(data.installation);
-  writeInstallationLinkToFile("README.md", installationLink);
-  console.log("Link to installation instructions generated successfully.");
-  // Write code to generate link to usage instructions here
-  const usageLink = generateUsageLink(data.usage);
-  writeUsageLinkToFile("README.md", usageLink);
-  console.log("Link to usage instructions generated successfully.");
-  // Write code to generate link to license here
-  const licenseLink = generateLicenseLink(data.license);
-  writeLicenseLinkToFile("README.md", licenseLink);
-  console.log("Link to license generated successfully.");
-  // Write code to generate license badge here
-  const badge = generateBadge(data.license);
-  writeBadgeToFile("README.md", badge);
-  console.log("License badge generated successfully.");
-  // Write code to generate link to contributing guidelines here
-  const contributingLink = generateContributingLink(data.contributing);
-  writeContributingLinkToFile("README.md", contributingLink);
-  console.log("Link to contributing guidelines generated successfully.");
-  // Write code to generate link to test instructions here
-  const testsLink = generateTestsLink(data.tests);
-  writeTestsLinkToFile("README.md", testsLink);
-  console.log("Link to test instructions generated successfully.");
-  // Write code to generate link to questions here
-  const questionsLink = generateQuestionsLink(data.questions);
-  writeQuestionsLinkToFile("README.md", questionsLink);
-  console.log("Link to questions generated successfully.");
-  // Write code to generate link to GitHub profile here
-  const link = generateGitHubLink(data.githubUsername);
-  writeLinkToFile("README.md", link);
-  console.log("Link to GitHub profile generated successfully.");
-  // Write code to generate link to email here
-  const emailLink = generateEmailLink();
-  writeEmailLinkToFile("README.md", emailLink);
-  console.log("Link to email generated successfully.");
-}
-
-// TODO: Create a function to initialize app
-function initReadme() {
-  inquirer.prompt(questions).then(writeToFile);
-}
-
-// Function call to initialize app
-initReadme();
