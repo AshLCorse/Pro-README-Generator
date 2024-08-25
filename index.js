@@ -17,8 +17,9 @@
 // THEN I am taken to the corresponding section of the README
 // TODO: Include packages needed for this application
 const inquirer = require("inquirer");
-const fs = require("fs");
+const fs = require("fs").promises;
 const { title } = require("process");
+const generateMarkdown = require("./utils/generateMarkdown");
 
 inquirer
   .prompt([
@@ -48,18 +49,18 @@ inquirer
     },
     {
       type: "input",
-      message: "Enter installation instructions:",
-      name: "installation",
+      message: "Enter your Github username",
+      name: "githubUsername",
     },
     {
       type: "input",
-      message: "Enter required npm extentions for usage:",
-      name: "usage1",
+      message: "Enter your github repo name:",
+      name: "repositoryName",
     },
     {
       type: "input",
-      message: "Enter relevant commands for usage:",
-      name: "usage2",
+      message: "Enter required npm dependencies for usage:",
+      name: "dependencies",
     },
     {
       type: "list",
@@ -69,49 +70,21 @@ inquirer
     },
     {
       type: "input",
-      message: "Enter contribution guidelines:",
-      name: "contributing",
-    },
-    {
-      type: "input",
-      message: "Enter test instructions:",
-      name: "tests",
+      message: "Enter your LinkedIn account:",
+      name: "linkedin",
     },
   ])
   .then((answers) => {
-    // TODO: Create a function to write README file
-    const generateMarkdown = ({
-      title,
-      toc,
-      description,
-      installation,
-      usage1,
-      usage2,
-      lisence,
-      contributing,
-      tests,
-      contact,
-    }) => `# ${title}
-    ## Table of Contents
-    ${toc}
-    ## Description
-    ${description}.
-    ## Installation
-    ${installation}.
-    ## Usage
-    To use, install ${usage1} through the terminal, run the code with ${usage2} when located in the folder the code is in.
-    ## License
-    ${lisence}
-    ## Contributing
-    Please remember to fork if you would like to contribute. ${contributing}.
-    ## Tests
-    ${tests}.
-    ## Contact
-    Contact me at AshLCorse at Github, or www.linkedin.com/in/ash-corse-2852a1126 at LinkedIn with any questions.
-    `;
-
-    const readmeContent = generateMarkdown(answers);
-    fs.writeFile("README.md", readmeContent, (err) => {
-      err ? console.log(err) : console.log("Successfully created README.md!");
-    });
+    console.log(answers);
+    const toc = answers.toc;
+    const description = answers.description;
+    const githubUsername = answers.githubUsername;
+    const repositoryName = answers.repositoryName;
+    const dependencies = answers.dependencies;
+    const license = answers.license;
+    const linkedin = answers.linkedin;
+    // }
+    fs.writeFile("output/README.md", generateMarkdown(answers)).then(() =>
+      console.log("Successfully wrote to README.md")
+    );
   });
