@@ -75,15 +75,14 @@ inquirer
     },
   ])
   .then((answers) => {
-    console.log(answers);
-    const title = answers.title;
+    const title = answers.title.trim();
     const toc = answers.toc;
-    const description = answers.description;
-    const githubUsername = answers.githubUsername;
-    const repositoryName = answers.repositoryName;
-    const dependencies = answers.dependencies;
-    const license = answers.license;
-    const linkedin = answers.linkedin;
+    const description = answers.description.trim();
+    const githubUsername = answers.githubUsername.trim();
+    const repositoryName = answers.repositoryName.trim();
+    const dependencies = answers.dependencies.trim();
+    const license = answers.license.trim();
+    const linkedin = answers.linkedin.trim();
     fs.writeFile(
       "output/README.md",
       generateMarkdown({
