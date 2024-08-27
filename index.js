@@ -37,7 +37,7 @@ inquirer
         "Usage",
         "License",
         "Contributing",
-        "Tests",
+        "Test",
         "Contact",
       ],
       name: "toc",
@@ -49,7 +49,7 @@ inquirer
     },
     {
       type: "input",
-      message: "Enter your Github username",
+      message: "Enter your Github username:",
       name: "githubUsername",
     },
     {
@@ -63,7 +63,7 @@ inquirer
       name: "dependencies",
     },
     {
-      type: "list",
+      type: "checkbox",
       message: "Choose a license for your application:",
       choices: ["MIT", "Apache-2.0", "GPL-3.0", "ISC", "None"],
       name: "license",
@@ -76,6 +76,7 @@ inquirer
   ])
   .then((answers) => {
     console.log(answers);
+    const title = answers.title;
     const toc = answers.toc;
     const description = answers.description;
     const githubUsername = answers.githubUsername;
@@ -83,8 +84,17 @@ inquirer
     const dependencies = answers.dependencies;
     const license = answers.license;
     const linkedin = answers.linkedin;
-    // }
-    fs.writeFile("output/README.md", generateMarkdown(answers)).then(() =>
-      console.log("Successfully wrote to README.md")
-    );
+    fs.writeFile(
+      "output/README.md",
+      generateMarkdown({
+        title,
+        toc,
+        description,
+        githubUsername,
+        dependencies,
+        repositoryName,
+        license,
+        linkedin,
+      })
+    ).then(() => console.log("Successfully wrote to README.md"));
   });
