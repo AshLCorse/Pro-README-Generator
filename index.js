@@ -63,7 +63,7 @@ inquirer
       name: "dependencies",
     },
     {
-      type: "checkbox",
+      type: "list",
       message: "Choose a license for your application:",
       choices: ["MIT", "Apache-2.0", "GPL-3.0", "ISC", "None"],
       name: "license",

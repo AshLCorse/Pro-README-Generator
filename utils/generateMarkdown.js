@@ -96,7 +96,9 @@ function generateMarkdown(
     }
     return licenseBadge;
   }
-  renderLicenseBadge(license);
+  const badge = renderLicenseBadge(license);
+  console.log(badge);
+
   // Creates a function that returns the license link
   // If there is no license, return an empty string
   function renderLicenseLink(license) {
@@ -163,7 +165,8 @@ function generateMarkdown(
     }
     return liceseLink;
   }
-  renderLicenseLink(license);
+  const link = renderLicenseLink(license);
+  console.log(link);
 
   const tocArray = [];
   let sectionContent = "";
@@ -209,10 +212,8 @@ function generateMarkdown(
     tocArray.push("License");
     const licenseInput = `
     ## License
-        ${renderLicenseBadge(license)}
-        This application is covered under the ${renderLicenseLink(
-          license
-        )} license.
+        ${badge}
+        This application is covered under the ${link} license.
         `;
     sectionContent += licenseInput;
   } else {
@@ -263,7 +264,7 @@ function generateMarkdown(
     let section = "";
     for (let i = 0; i < tocArray.length; i++) {
       section = `
-   * [${tocArray[i]}](#${tocArray[i]})
+   * [${tocArray[i]}](https://github.com/${githubUsername}/${repositoryName}#${tocArray[i]})
   `;
       tocInput += section;
     }

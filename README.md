@@ -2,19 +2,19 @@
 
 ## Table of Contents
 
-- [Description](#Description)
+- [Description](https://github.com/AshLCorse/Pro-README-Generator #Description)
 
-- [Installation](#Installation)
+- [Installation](https://github.com/AshLCorse/Pro-README-Generator #Installation)
 
-- [Usage](#Usage)
+- [Usage](https://github.com/AshLCorse/Pro-README-Generator #Usage)
 
-- [License](#License)
+- [License](https://github.com/AshLCorse/Pro-README-Generator #License)
 
-- [Contributing](#Contributing)
+- [Contributing](https://github.com/AshLCorse/Pro-README-Generator #Contributing)
 
-- [Test](#Test)
+- [Test](https://github.com/AshLCorse/Pro-README-Generator #Test)
 
-- [Questions](#Questions)
+- [Questions](https://github.com/AshLCorse/Pro-README-Generator #Questions)
 
 
     ##Description
@@ -32,8 +32,8 @@
         Remember to install these dependencies: Node, Express, FS, and Path !
 
     ## License
-        https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404
-        This application is covered under the https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404 license.
+        [License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+        This application is covered under the [MIT License](https://opensource.org/licenses/MIT) license.
 
     ## Contributing
         Please remember to fork if you would like to contribute!
